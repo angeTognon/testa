@@ -2,7 +2,7 @@
 <html>
 <head>
   
-  <base href="/">
+  <base href="https://lambent-kataifi-c3c6b3.netlify.app/">
 
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
@@ -19,79 +19,29 @@
 
   <title>Feishola Agency</title>
   <link rel="manifest" href="manifest.json">
-  <style>
-     .container{
-      width: 100vw;
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-     }
 
-     .indicator {
-      width: 50vw;
-     }
-    
-  </style>
   <script>
     // The value below is injected by flutter build, do not touch.
-   
-    // const serviceWorkerVersion = "2959366254";
+    const serviceWorkerVersion = "141394744";
   </script>
   <!-- This script adds the flutter initialization JS code -->
   <script src="flutter.js" defer></script>
 </head>
-<body style="overflow: hidden">
-  <div id="loading_indicator" class="container">
-    <img class="indicator" src="./assets/anim.gif"/>
-  </div>
+<body>
   <script>
-    var serviceWorkerVersion = null;
-    var scriptLoaded = false;
-    function LoadMainDartJs(){
-      if(scriptLoaded){
-        return ; 
-      }
-      scriptLoaded = true;
-      var scriptTag = document.createElement("script");
-      scriptTag.src="main.dart.js";
-      scriptTag.type = "application/javascript";
-      document.body.append(scriptTag);
-    }
-    if("serviceWorker" in navigator){
-      window.addEventListener("load",function(){
-        var serviceWorkerUrl = "flutter_service_worker.js?v="+serviceWorkerVersion;
-        navigator.serviceWorker.register(serviceWorkerUrl).then((reg)=>{
-          function waitForActivation(serviceWorker){
-            serviceWorker.addEventListener("statechange",()=>{
-              if(serviceWorker.state =="activated"){
-                console.log("Installed new service worker");
-                LoadMainDartJs();
-              }
-            });
-            setTimeout(()=>{
-              if(!scriptLoaded){
-                console.warn("erreurrrrr");
-                LoadMainDartJs();
-              }
-            },4000);
+    window.addEventListener('load', function(ev) {
+      // Download main.dart.js
+      _flutter.loader.loadEntrypoint({
+        serviceWorker: {
+          serviceWorkerVersion: serviceWorkerVersion,
+        },
+        onEntrypointLoaded: function(engineInitializer) {
+          engineInitializer.initializeEngine().then(function(appRunner) {
+            appRunner.runApp();
+          });
         }
-       });
       });
-    }else {
-      LoadMainDartJs();
-    }
-  </script>
-  <script>
-    window.onload = function(){
-      setTimeout(function(){
-        var loadingIndicator = document.getElementById("loading_indicator");
-        if(loadingIndicator){
-          loadingIndicator.remove();
-        }
-      },10000);
-    };
+    });
   </script>
 </body>
 </html>
-<!-- ici on essaye de recharger les éléments de la page afin de pouvor -->
